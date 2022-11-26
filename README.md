@@ -35,12 +35,15 @@ docker build -f "Dockerfile" -t quillnoteserver:latest "."
 docker run -d  -p 3000:3000/tcp quillnoteserver:latest
 ```
 
-#### Add User using a Bash Shell in the Container 
+#### Add User using a Bash Shell in the Container (Optional)
+
+New Users can be created automatically just by logging through the Quillnote/Quillpad App - just choose a username and password when setting up sync settings in the App and a new Account will be created. - This feature should be togglable in the future with an enviroment variable.
 
 ```
 docker exec -it [container-name/id] sh
 ./server user add [username] [password]
 ```
+
 
 
 ### Without Docker
@@ -51,11 +54,19 @@ docker exec -it [container-name/id] sh
 go build -o server .
 ```
 
-#### Init DB and Create User
-
+#### Init DB (required)
 ```
 ./server migrate
+```
+
+
+#### Create User (Optional)
+
+New Users can be created automatically just by logging through the Quillnote/Quillpad App - just choose a username and password when setting up sync settings in the App and a new Account will be created. - This feature should be togglable in the future with an enviroment variable.
+
+```
 ./server user add [username] [password]
+
 ```
 
 #### Run Server
