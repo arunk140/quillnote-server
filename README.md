@@ -2,7 +2,12 @@
 ### currently in development things might break
 
 
-Runs a lightweight Nextcloud-like Notes Server. Made for the Quillnote App - https://qosp.org/  
+Runs a lightweight Nextcloud-like Notes Server. 
+
+Made for the Quillnote/Quillpad App -
+
+* Maintained Fork - https://github.com/quillpad/quillpad 
+* Orignal App - https://qosp.org/
 
 ## Purpose
 
@@ -66,7 +71,6 @@ New Users can be created automatically just by logging through the Quillnote/Qui
 
 ```
 ./server user add [username] [password]
-
 ```
 
 #### Run Server
@@ -76,7 +80,10 @@ New Users can be created automatically just by logging through the Quillnote/Qui
 ```
 
 
-### Quillnote App - https://qosp.org/
+### Quillnote/Quillpad App
+
+* Maintained Fork - https://github.com/quillpad/quillpad 
+* Orignal App - https://qosp.org/
 
 In the `Settings` -> `Go to sync settings` -> Set the `Syncing service` to 'Nextcloud' 
 
