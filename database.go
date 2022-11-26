@@ -34,17 +34,18 @@ func GetDB() *gorm.DB {
 	return db
 }
 
-func AddUser(username string, password string) {
+func AddUser(username string, password string) *quilltypes.User {
 	db := GetDB()
 	var user quilltypes.User
-	tx := db.First(&user, "username = ?", strings.TrimSpace(username))
+	tx := db.First(&user, "username = ?", (username))
 	if tx.RowsAffected != 0 {
-		return
+		return nil
 	}
-	user.Username = strings.TrimSpace(username)
-	user.Auth.Username = strings.TrimSpace(username)
-	user.Auth.Password = HashPassword(strings.TrimSpace(password))
+	user.Username = (username)
+	user.Auth.Username = (username)
+	user.Auth.Password = HashPassword((password))
 	db.Create(&user)
+	return &user
 }
 
 func HashPassword(password string) string {
@@ -71,7 +72,11 @@ func ValidateAuthorizationHeader(Authorization string) (*quilltypes.User, bool) 
 	var auth quilltypes.Auth
 	tx := db.First(&auth, "username = ?", username)
 	if tx.RowsAffected == 0 {
-		return nil, false
+		newUser := AddUser(username, password)
+		if newUser == nil {
+			return nil, false
+		}
+		return newUser, true
 	}
 
 	error := bcrypt.CompareHashAndPassword([]byte(auth.Password), []byte(password))
@@ -86,6 +91,9 @@ func ValidateAuthorizationHeader(Authorization string) (*quilltypes.User, bool) 
 }
 
 func AuthenticateMiddleware(c *fiber.Ctx) error {
+	if c.Path() == "/metrics" {
+		return c.Next()
+	}
 	Authorization := c.Get("Authorization")
 	if Authorization == "" {
 		return c.SendStatus(401)

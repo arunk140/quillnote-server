@@ -76,7 +76,7 @@ func UpdateNote(c *fiber.Ctx) error {
 	var noteToUpdate quilltypes.Note
 	ts := gormDb.First(&noteToUpdate, quilltypes.Note{ID: noteIdInt, UserID: UserID.(uint)})
 	if ts.RowsAffected == 0 {
-		return c.SendStatus(404)
+		return CreateNote(c)
 	}
 	noteToUpdate = note
 	gormDb.Save(&noteToUpdate)
