@@ -7,7 +7,7 @@ Runs a lightweight Nextcloud-like Notes Server.
 Made for the Quillnote/Quillpad App -
 
 * Maintained Fork - https://github.com/quillpad/quillpad 
-* Orignal App - https://qosp.org/
+* Orignal App - [Quillnote](https://github.com/msoultanidis/quillnote))
 
 ## Purpose
 
